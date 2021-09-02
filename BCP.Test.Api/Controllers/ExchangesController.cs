@@ -1,11 +1,13 @@
 ﻿using BCP.Test.Api.Dtos;
 using BCP.Test.Api.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
 
 namespace BCP.Test.Api.Controllers
 {
+    [Authorize(Roles = "ADMIN")]
     [Route("api/[controller]")]
     [ApiController]
     public class ExchangesController : ControllerBase

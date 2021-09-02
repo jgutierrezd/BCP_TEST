@@ -24,7 +24,7 @@ namespace BCP.Test.Api.Controllers
             _configuration = configuration;
         }
 
-        [HttpPost]
+        [HttpPost("Login")]
         public object Login([FromBody] LoginDto model)
         {
 

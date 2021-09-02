@@ -15,6 +15,8 @@ namespace BCP.Test.Api.Data
 
         public virtual DbSet<Rate> Rates { get; set; }
 
+        public virtual DbSet<Prefer> Prefers { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Rate>(entity =>
@@ -31,10 +33,19 @@ namespace BCP.Test.Api.Data
                     .IsRequired()
                     .HasMaxLength(3);
             });
-            //modelBuilder.Entity<Rate>().HasData(
-            //    new Rate { CurrencyOrigin = "PEN", rate = 4.1m, CurrencyDestiny = "USD", IsMultiplier = false },
-            //    new Rate { CurrencyOrigin = "USD", rate = 3.9m, CurrencyDestiny = "PEN", IsMultiplier = true }
-            //);
+
+
+            modelBuilder.Entity<Prefer>(entity =>
+            {
+                entity.Property(e => e.Id).ValueGeneratedOnAdd();
+                entity.HasKey(up => new { up.Id });
+
+                entity.Property(e => e.Email)
+                    .IsRequired()
+                    .HasMaxLength(100);
+
+            });
+
             OnModelCreatingPartial(modelBuilder);
         }
 

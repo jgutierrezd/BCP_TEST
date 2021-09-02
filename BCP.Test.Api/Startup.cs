@@ -67,6 +67,7 @@ namespace BCP.Test.Api
             //Add reference a internal services
             services.AddTransient<IExchangeService, ExchangeService>();
             services.AddTransient<IRateService, RateService>();
+            services.AddTransient<IPreferService, PreferService>();
 
             services.AddSwaggerGen(c =>
             {

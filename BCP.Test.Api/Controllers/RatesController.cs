@@ -17,11 +17,13 @@ namespace BCP.Test.Api.Controllers
     {
         private readonly ILogger<RatesController> _logger;
         private readonly IRateService _baseService;
+        private readonly IPreferService _entityService;
         private readonly IMapper _mapper;
-        public RatesController(ILogger<RatesController> logger, IRateService baseService, IMapper mapper)
+        public RatesController(ILogger<RatesController> logger, IRateService baseService, IPreferService entityService, IMapper mapper)
         {
             _logger = logger;
             _baseService = baseService;
+            _entityService = entityService;
             _mapper = mapper;
         }
 
@@ -57,6 +59,20 @@ namespace BCP.Test.Api.Controllers
             _mapper.Map(newEntity, currentEntity);
 
             var entityResult = await _baseService.Update(currentEntity);
+            if (entityResult == null)
+                return StatusCode(StatusCodes.Status500InternalServerError, "Error saving record");
+
+            return NoContent();
+        }
+
+
+        [HttpGet("Prefer/{email}")]
+        public async Task<Object> Config(string email)
+        {
+            var newEntity = new Models.Prefer();
+            newEntity.Email = email;
+
+            var entityResult = await _entityService.Create(newEntity);
             if (entityResult == null)
                 return StatusCode(StatusCodes.Status500InternalServerError, "Error saving record");
 

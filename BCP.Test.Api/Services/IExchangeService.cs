@@ -8,6 +8,6 @@ namespace BCP.Test.Api.Services
 {
     public interface IExchangeService
     {
-        Task<ExchangeResultDto> GenerateExchange(decimal amount,string origin, string destiny);
+        Task<ExchangeResultDto> GenerateExchange(decimal amount,string origin, string destiny, string email);
     }
 }

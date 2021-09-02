@@ -24,7 +24,7 @@ namespace BCP.Test.Api.Controllers
         [HttpPost("Process")]
         public async Task<Object> Procesar([FromBody] ExchangeDto newEntity)
         {
-            var currentEntity = await _baseService.GenerateExchange(newEntity.Amount, newEntity.OriginCurrency, newEntity.DestinationCurrency);
+            var currentEntity = await _baseService.GenerateExchange(newEntity.Amount, newEntity.OriginCurrency, newEntity.DestinationCurrency, newEntity.Email);
             if (currentEntity == null)
                 return NotFound();
 

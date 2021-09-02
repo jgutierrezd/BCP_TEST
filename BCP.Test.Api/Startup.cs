@@ -1,7 +1,10 @@
+using BCP.Test.Api.Data;
+using BCP.Test.Api.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -26,8 +29,13 @@ namespace BCP.Test.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<TestDbContext>(options => options.UseInMemoryDatabase("Test"));
 
             services.AddControllers();
+
+            //Add reference a internal services
+            services.AddTransient<IExchangeService, ExchangeService>();
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "BCP.Test.Api", Version = "v1" });
@@ -54,6 +62,8 @@ namespace BCP.Test.Api
             {
                 endpoints.MapControllers();
             });
+
+            //SeedCreator.CreateData();
         }
     }
 }

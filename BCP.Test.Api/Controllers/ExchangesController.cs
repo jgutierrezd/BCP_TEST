@@ -1,9 +1,8 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using BCP.Test.Api.Dtos;
+using BCP.Test.Api.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace BCP.Test.Api.Controllers
 {
@@ -11,5 +10,18 @@ namespace BCP.Test.Api.Controllers
     [ApiController]
     public class ExchangesController : ControllerBase
     {
+        private readonly ILogger<ExchangesController> _logger;
+        private readonly IExchangeService _baseService;
+        public ExchangesController(ILogger<ExchangesController> logger, IExchangeService baseService)
+        {
+            _logger = logger;
+            _baseService = baseService;
+        }
+
+        [HttpPost]
+        public Object Procesar([FromBody] ExchangeDto newEntity)
+        {
+            return Ok(true);
+        }
     }
 }

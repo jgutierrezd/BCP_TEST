@@ -8,6 +8,7 @@ Hay 2 enpoint Exchange, que permite realizar las operaciones para tipo de cambio
 * Adicionar el token obtenido para cualquier request (Bearer Token)
 * Realizar la operacion de tipo de cambio (POST /api/Exchanges/Process)
 * Realizar la operacion de registrar un nuevo tipo de cambio (POST /api/Rates)}
+* Realizar la operacion de actualizar un tipo de cambio existente (PUT /api/Rates)}
 
 ## Swagger 
 Ver docuemntacion de API swagger en https://localhost:44345/swagger/index.html

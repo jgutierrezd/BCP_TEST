@@ -29,9 +29,12 @@ namespace BCP.Test.Api.Services
             throw new NotImplementedException();
         }
 
-        public Task<Rate> Update(Rate _object)
+        public async Task<Rate> Update(Rate _object)
         {
-            throw new NotImplementedException();
+            var obj = _dbContext.Rates.Update(_object);
+
+            var result = await _dbContext.SaveChangesAsync();
+            return result == 1 ? obj.Entity : null;
         }
     }
 }

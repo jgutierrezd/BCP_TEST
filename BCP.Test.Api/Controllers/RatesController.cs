@@ -46,5 +46,21 @@ namespace BCP.Test.Api.Controllers
 
             return Ok(currentEntity);
         }
+
+        [HttpPut("{idEntity}")]
+        public async Task<Object> Put(int idEntity, [FromBody] RateDto newEntity)
+        {
+            var currentEntity = await _baseService.GetById(idEntity);
+            if (currentEntity == null)
+                return NotFound();
+
+            _mapper.Map(newEntity, currentEntity);
+
+            var entityResult = await _baseService.Update(currentEntity);
+            if (entityResult == null)
+                return StatusCode(StatusCodes.Status500InternalServerError, "Error saving record");
+
+            return NoContent();
+        }
     }
 }

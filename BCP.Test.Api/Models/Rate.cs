@@ -5,11 +5,12 @@ using System.Threading.Tasks;
 
 namespace BCP.Test.Api.Models
 {
-    public class ExchangeRate
+    public class Rate
     {
         public int Id { get; set; }
+        public string CurrencyOrigin { get; set; }
+        public string CurrencyDestiny { get; set; }
         public decimal rate { get; set; }
-
-        public DateTime date { get; set; }
+        public bool IsMultiplier  { get; set; }
     }
 }

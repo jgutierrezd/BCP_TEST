@@ -9,7 +9,8 @@ namespace BCP.Test.Api.Data
     {
         public static void CreateData(TestDbContext dbContext)
         {
-            dbContext.ExchangeRates.Add(new Models.ExchangeRate { Id = 1, date = DateTime.Now.Date, rate = 4.1m });
+            dbContext.Rates.Add(new Models.Rate { CurrencyOrigin = "PEN", rate = 4.1m, CurrencyDestiny = "USD", IsMultiplier = false });
+            dbContext.Rates.Add(new Models.Rate { CurrencyOrigin = "USD", rate = 3.9m, CurrencyDestiny = "PEN", IsMultiplier = true });
         }
     }
 }

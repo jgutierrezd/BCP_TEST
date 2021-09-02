@@ -33,6 +33,7 @@ namespace BCP.Test.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //Configure Memory Database
             services.AddDbContext<TestDbContext>(options => options.UseInMemoryDatabase("Test"));
 
             // ===== Add Jwt Authentication ========
@@ -58,11 +59,14 @@ namespace BCP.Test.Api
                     };
                 });
 
+            //Add Mapper Dto to Model
+            services.AddAutoMapper(typeof(Startup));
 
             services.AddControllers();
 
             //Add reference a internal services
             services.AddTransient<IExchangeService, ExchangeService>();
+            services.AddTransient<IRateService, RateService>();
 
             services.AddSwaggerGen(c =>
             {

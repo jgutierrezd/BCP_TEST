@@ -4,10 +4,11 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Threading.Tasks;
 
 namespace BCP.Test.Api.Controllers
 {
-    [Authorize(Roles = "ADMIN")]
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class ExchangesController : ControllerBase
@@ -20,10 +21,14 @@ namespace BCP.Test.Api.Controllers
             _baseService = baseService;
         }
 
-        [HttpPost]
-        public Object Procesar([FromBody] ExchangeDto newEntity)
+        [HttpPost("Process")]
+        public async Task<Object> Procesar([FromBody] ExchangeDto newEntity)
         {
-            return Ok(true);
+            var currentEntity = await _baseService.GenerateExchange(newEntity.Amount, newEntity.OriginCurrency, newEntity.DestinationCurrency);
+            if (currentEntity == null)
+                return NotFound();
+
+            return Ok(currentEntity);
         }
     }
 }
